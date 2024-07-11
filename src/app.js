@@ -31,4 +31,11 @@ app.use("/api/v1/comments", commentRoutes);
 
 import tweetRoutes from "./routes/tweet.routes.js";
 app.use("/api/v1/tweets", tweetRoutes);
+
+import likeRoutes from "./routes/like.routes.js";
+app.use("/api/v1/likes",likeRoutes)
+
+import playlistRoutes from "./routes/playlist.routes.js";
+app.use("/api/v1/playlists",playlistRoutes)
+
 export { app };
