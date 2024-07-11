@@ -29,4 +29,6 @@ app.use("/api/v1/videos", videoRouter);
 import commentRoutes from "./routes/comment.routes.js";
 app.use("/api/v1/comments", commentRoutes);
 
+import tweetRoutes from "./routes/tweet.routes.js";
+app.use("/api/v1/tweets", tweetRoutes);
 export { app };
