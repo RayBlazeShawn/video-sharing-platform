@@ -41,4 +41,8 @@ app.use("/api/v1/playlists",playlistRoutes)
 import subscriptionRoutes from "./routes/subscription.routes.js";
 app.use("/api/v1/toggle",subscriptionRoutes)
 
+
+import streamRoutes from "./routes/stream.routes.js";
+app.use("/api/v1/stream",streamRoutes)
+
 export { app };

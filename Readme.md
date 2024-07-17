@@ -10,6 +10,7 @@ This project is an attempt to create a video streaming and sharing platform usin
 - **Playlists**: Users can create playlists and add/remove videos.
 - **Likes**: Users can like/unlike videos, comments, and tweets.
 - **Subscriptions**: Users can subscribe to channels, manage their subscriptions, and view subscribers.
+- **Real-time Streaming with WebRTC**: Users can start and stop live streams, and connect multiple peers for real-time video and audio streaming using WebRTC.
 
 ## Technologies Used
 
@@ -19,6 +20,8 @@ This project is an attempt to create a video streaming and sharing platform usin
 - **Node.js**: JavaScript runtime for building the backend.
 - **Mongoose**: ODM for MongoDB.
 - **Cloudinary**: Cloud service for handling video uploads.
+- **WebRTC**: Technology for real-time peer-to-peer communication.
+- **WebSocket**: Used for the signaling server to facilitate WebRTC connections.
 
 ## Getting Started
 
@@ -141,3 +144,43 @@ Here’s how to make an example request using the imported Postman collection:
    
 For more details, refer to the specific requests in the Postman collection.
 
+### WebRTC Signaling Server Setup
+
+To enable real-time streaming and peer-to-peer communication, this platform uses a WebRTC signaling server. Here's how to set it up:
+
+1. **Start the Signaling Server**:
+
+   The signaling server facilitates the exchange of signaling data (SDP offers, answers, and ICE candidates) between peers.
+
+   The server code is available in `src/signalingServer.js`.
+
+2. **Connect Peers Using WebSocket**:
+
+   You can use a WebSocket client like `wscat` to connect to the signaling server and exchange signaling messages.
+
+   **Install `wscat`**:
+    ```sh
+    npm install -g wscat
+    ```
+
+   **Connect Peers**:
+    ```sh
+    wscat -c ws://localhost:8000
+    ```
+
+3. **Exchange Signaling Messages**:
+
+   **Peer A**:
+    ```sh
+    > {"offer": {"type": "offer", "sdp": "v=0..."}}
+    ```
+
+   **Peer B**:
+    ```sh
+    > {"answer": {"type": "answer", "sdp": "v=0..."}}
+    ```
+
+   **ICE Candidates**:
+    ```sh
+    > {"candidate": {"candidate": "candidate:842163049 1 udp 1677729535 192.168.1.2 12345 typ srflx raddr 0.0.0.0 rport 0 generation 0 ufrag EEtu network-cost 999", "sdpMid": "video", "sdpMLineIndex": 0}}
+    ```

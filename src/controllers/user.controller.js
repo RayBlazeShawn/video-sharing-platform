@@ -23,8 +23,12 @@ const generateAccessAndRefreshToken = async (userId) => {
 const registerUser = asyncHandler(async (req, res) => {
 
 
-  const { fullName, email, username, password } = req.body;
+  const { fullName, email, username, password,role } = req.body;
 
+  const validRoles = ['user', 'streamer', 'admin'];
+  if (!validRoles.includes(role)) {
+    throw new ApiError(400, "Invalid role specified");
+  }
 
   if (
     [fullName, email, username, password].some((field) => field?.trim() === "")
@@ -65,6 +69,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     username: username.toLowerCase(),
+    role
   });
 
   const createdUser = await User.findById(user._id).select("-password -refreshToken");
